@@ -18,12 +18,16 @@
   ],
   "author": {
     "name": "Tom Jenkins",
-    "email":  "tom@itsravenous.com",
+    "email": "tom@itsravenous.com",
     "url": "http://itsravenous.com"
   },
   "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/itsravenous/i3s-js/issues"
   },
-  "homepage": "https://github.com/itsravenous/i3s-js"
+  "homepage": "https://github.com/itsravenous/i3s-js",
+  "dependencies": {
+    "basejs": "^1.1.1"
+  },
+  "devDependencies": {}
 }
