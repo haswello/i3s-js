@@ -1,0 +1,29 @@
+{
+  "name": "i3s",
+  "version": "0.0.0",
+  "description": "Port of the various spot/feature pattern matching algorithms used by the photo ID software i3s (http://reijns.com/i3s)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsravenous/i3s-js.git"
+  },
+  "keywords": [
+    "photo id",
+    "algorithm",
+    "pattern",
+    "matching"
+  ],
+  "author": {
+    "name": "Tom Jenkins",
+    "email":  "tom@itsravenous.com",
+    "url": "http://itsravenous.com"
+  },
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/itsravenous/i3s-js/issues"
+  },
+  "homepage": "https://github.com/itsravenous/i3s-js"
+}
