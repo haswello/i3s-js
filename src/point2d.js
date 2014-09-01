@@ -28,8 +28,11 @@ var Point2D = Base.extend({
 	 * @constructor
 	 */
 	constructor: function (x, y) {
-		if (typeof x != 'undefined') x = this.defaults.x;
-		if (typeof y != 'undefined') y = this.defaults.y;
+		if (typeof x == 'undefined') x = this.defaults.x;
+		if (typeof y == 'undefined') y = this.defaults.y;
+
+		this.x = x;
+		this.y = y;
 	},
 
 	/**
@@ -68,7 +71,7 @@ var Point2D = Base.extend({
 
 	/**
 	 * Determines the distance from this point to the given point
-	 * @param {Point2D or Number} comparison point or x position thereof 
+	 * @param {Point2D | Number} comparison point or x position thereof 
 	 * @param {Number} y position of comparison point
 	 * @return {Number}
 	 */
@@ -78,7 +81,7 @@ var Point2D = Base.extend({
 
 	/**
 	 * Determines the square distance from this point to the given point
-	 * @param {Point2D or Number} comparison point or x position thereof 
+	 * @param {Point2D | Number} comparison point or x position thereof 
 	 * @param {Number} y position of comparison point
 	 * @return {Number}
 	 */
@@ -99,7 +102,7 @@ var Point2D = Base.extend({
 		 */
 		var y = p.y;
 
-		if (typeof arguments[0] = Point2D) {
+		if (typeof arguments[0] == Point2D) {
 			/**
 			 * {Point2D}
 			 * Comparison point
@@ -125,6 +128,6 @@ var Point2D = Base.extend({
 
 		return (dx*dx) + (dy*dy);
 	}
-}
+});
 
-module.exports = Point2D
+module.exports = Point2D;
