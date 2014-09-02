@@ -1,23 +1,23 @@
 /**
+ * @module Point2D
  * @file Point2D Class
- * @author Tom Jenkins tom@itsravenous.com
+ * @author Tom Jenkins <tom@itsravenous.com>
  */
 
 /**
- * {Object}
  * BaseJS class
+ * @type Object
  */
 var Base = require('basejs');
 
-/**
- * {Object}
- * Point2D class
- */
 var Point2D = Base.extend({
 
 	/**
-	 * {Object}
 	 * Default property values
+	 * @type {Object}
+	 * @memberof Point2D.prototype
+	 * @property {Number} x default value for x
+	 * @property {Number} y default value for y
 	 */
 	defaults: {
 		x: -1000000000,
@@ -25,7 +25,10 @@ var Point2D = Base.extend({
 	},
 
 	/**
-	 * @constructor
+	 * @constructor Point2D
+	 * @classdesc Represents a 2D Point
+	 * @param {Number} [x=this.defaults.x] x position
+	 * @param {Number} [y=this.defaults.y] y position
 	 */
 	constructor: function (x, y) {
 		if (typeof x == 'undefined') x = this.defaults.x;
@@ -37,14 +40,19 @@ var Point2D = Base.extend({
 
 	/**
 	 * Determines whether the given point is identical to this one
+	 *
+	 * @memberof Point2D.prototype
 	 * @param {Point2D}
+	 * @return {Boolean}
 	 */
 	equals: function(p) {
 		return p.x == this.x && p.y == this.y;
 	},
 
 	/**
-	 * Set the x position of the point
+	 * Sets the x position of the point
+	 *
+	 * @memberof Point2D.prototype
 	 * @param {Number}
 	 */
 	setX: function (x) {
@@ -52,7 +60,9 @@ var Point2D = Base.extend({
 	},
 
 	/**
-	 * Set the y position of the point
+	 * Sets the y position of the point
+	 *
+	 * @memberof Point2D.prototype
 	 * @param {Number}
 	 */
 	setY: function (y) {
@@ -61,6 +71,8 @@ var Point2D = Base.extend({
 
 	/**
 	 * Sets the x and y positions of the point
+	 *
+	 * @memberof Point2D.prototype
 	 * @param {Number} x
 	 * @param {Number} y
 	 */
@@ -71,8 +83,10 @@ var Point2D = Base.extend({
 
 	/**
 	 * Determines the distance from this point to the given point
-	 * @param {Point2D | Number} comparison point or x position thereof 
-	 * @param {Number} y position of comparison point
+	 *
+	 * @memberof Point2D.prototype
+	 * @param {Point2D | Number} x position or entire comparison point instance 
+	 * @param {Number=} y position of comparison point
 	 * @return {Number}
 	 */
 	getDist: function () {
@@ -81,8 +95,10 @@ var Point2D = Base.extend({
 
 	/**
 	 * Determines the square distance from this point to the given point
-	 * @param {Point2D | Number} comparison point or x position thereof 
-	 * @param {Number} y position of comparison point
+	 *
+	 * @memberof Point2D.prototype
+	 * @param {Point2D | Number} x position or entire comparison point instance
+	 * @param {Number=} y position of comparison point
 	 * @return {Number}
 	 */
 	getSqrDist: function () {
