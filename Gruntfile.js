@@ -27,10 +27,25 @@ module.exports = function(grunt) {
 		all: ['spec/']
 	};
 
+	// JSDoc options
+	gruntConfig.jsdoc = {
+		dist: {
+			src: [
+				'src/*.js'
+			],
+			options: {
+				destination: 'doc'
+			}
+		}
+	};
+
 	grunt.initConfig(gruntConfig);
 
 	grunt.loadNpmTasks('grunt-jasmine-node');
+	grunt.loadNpmTasks('grunt-jsdoc');
 
 	grunt.registerTask('test', ['jasmine_node']);
+	grunt.registerTask('doc', ['jsdoc']);
+
 
 };
