@@ -4,6 +4,7 @@
  */
 
 var common = require('./common');
+var Point2D = require('./point2d');
 
 /**
  * @constructor
@@ -130,4 +131,6 @@ Element.prototype = {
 	}
 
 }
+
+module.exports = Element;
 
