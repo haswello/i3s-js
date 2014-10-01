@@ -3,40 +3,72 @@
  * @author Tom Jenkins tom@itsravenous.com
  */
 
+var Base = require('basejs');
 var common = require('./common');
 var Point2D = require('./point2d');
 
 /**
  * @constructor
  */
-var Element = function () {
+var Element = Base.extend({
+
 	/**
-	 * @type {Point2D}
+	 * List of element's points
+	 * @memberof Element.prototype
+	 * @type {Array}
 	 */
-	this.data = new Point2D();
+	data: [],
+
 	/**
 	 * x position of centre of element
+	 * @memberof Element.prototype
 	 * @type {Number}
 	 */
-	this.cx = 0;
+	cx: 0,
+
 	/**
 	 * y position of centre of element
+	 * @memberof Element.prototype
 	 * @type {Number}
 	 */
-	this.cy = 0;
-	/**
-	 * area element (only applicable to ellipse elements)
-	 * @type {Number}
-	 */
-	this.area = 0;
-	/**
-	 * angle of element (only applicable to ellipse elements)
-	 * @type {Number}
-	 */
-	this.angle = 0;
-}
+	cy: 0,
 
-Element.prototype = {
+	/**
+	 * Area of element (only applicable to ellipse elements)
+	 * @memberof Element.prototype
+	 * @type {Number}
+	 */
+	area: 0,
+
+	/**
+	 * Angle of element (only applicable to ellipse elements)
+	 * @memberof Element.prototype
+	 * @type {Number}
+	 */
+	angle: 0,
+
+	/**
+	 * @constructor {Element}
+	 */
+	constructor: function () {
+		
+	},
+
+	/**
+	 * Sets the point(s) for the element
+	 * @param {Array} list of one or four points (one for a point element (i3s classic), four for an ellipse (i3s spot))
+	 */
+	set: function (points) {
+		var pointCount = points.length;
+		if (pointCount == 1 || pointCount == 4)  {
+			this.data = [];
+			for (i = 0; i < pointCount; i ++) {
+				this.data[i] = new Point2D(points[i][0], points[i][1]);
+			}
+		} else {
+			throw 'Invalid number of points passed to element. Pass one for a point element, or four for an ellipse.';
+		}
+	},
 	
 	/**
 	 * From i3s: Determines similarity (in shape) between two elements (1.0 is perfect). Each difference 
@@ -130,7 +162,7 @@ Element.prototype = {
 	   return false;
 	}
 
-}
+});
 
 module.exports = Element;
 
