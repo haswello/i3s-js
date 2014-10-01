@@ -53,21 +53,36 @@ var Element = Base.extend({
 	},
 
 	/**
-	 * Sets the point(s) for the element
+	 * Sets the point(s) and center for the element
 	 *
 	 * @memberof Element.prototype
 	 * @param {Array} list of one or four points (one for a point element (i3s classic), four for an ellipse (i3s spot))
+	 * @property {Array} If element is to be a point, this is the point. If an ellipse, this is the 1st east/west pole
+	 * @property {Array} 2nd East/west pole of the ellipse
+	 * @property {Array} 1st north/south pole of the ellipse
+	 * @property {Array} 2nd north/south pole of the ellipse
 	 */
 	set: function (points) {
 		var pointCount = points.length;
-		if (pointCount == 1 || pointCount == 4)  {
+		if (pointCount == 1) {
+			// Simple point
+			this.data = points;
+			this.data[0] = new Point2D(points[0][0], points[0][1]);
+			this.cx = this.data[0].x;
+			this.cy = this.data[0].y;
+		} else if (pointCount == 4)  {
+			// Ellipse
 			this.data = [];
 			for (i = 0; i < pointCount; i ++) {
 				this.data[i] = new Point2D(points[i][0], points[i][1]);
 			}
+			this.cx = (points[0][0] + points[1][0]) / 2;
+			this.cy = (points[2][1] + points[3][1]) / 2;
 		} else {
-			throw 'Invalid number of points passed to element. Pass one for a point element, or four for an ellipse.';
+			// Um, guys, no triangles
+			throw 'Invalid number of points passed to element. Pass one for a point element, or four for an ellipse. Triangles and other occult markings not supported.';
 		}
+
 	},
 	
 	/**
