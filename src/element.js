@@ -56,11 +56,11 @@ var Element = Base.extend({
 	 * Sets the point(s) and center for the element
 	 *
 	 * @memberof Element.prototype
-	 * @param {Array} list of one or four points (one for a point element (i3s classic), four for an ellipse (i3s spot))
-	 * @property {Array} If element is to be a point, this is the point. If an ellipse, this is the 1st east/west pole
-	 * @property {Array} 2nd East/west pole of the ellipse
-	 * @property {Array} 1st north/south pole of the ellipse
-	 * @property {Array} 2nd north/south pole of the ellipse
+	 * @param {Array} points list of one or four points (one for a point element (i3s classic), four for an ellipse (i3s spot))
+	 * @param {Array} points.0 If element is to be a point, this is the point. If an ellipse, this is the 1st east/west pole
+	 * @param {Array} points.1 2nd East/west pole of the ellipse
+	 * @param {Array} points.2 1st north/south pole of the ellipse
+	 * @param {Array} points.3 2nd north/south pole of the ellipse
 	 */
 	set: function (points) {
 		var pointCount = points.length;
