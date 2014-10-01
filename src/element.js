@@ -160,6 +160,35 @@ var Element = Base.extend({
 	         return true;
 	   }
 	   return false;
+	},
+
+	/**
+	 * Determines the square distance from another element
+	 * @memberof Element.prototype
+	 * @param {Element}
+	 * @return {Number}
+	 */
+	sqrDist: function (el) {
+		return (el.cx - this.cx)*(el.cx - this.cx) + (el.cy - this.cy)*(el.cy - this.cy);
+	},
+
+	/**
+	 * Determines the distance from another element
+	 * @memberof Element.prototype
+	 * @param {Element}
+	 * @return {Number}
+	 */
+	getDist: function (el) {
+		return Math.sqrt(this.sqrDist(el));
+	},
+
+	/**
+	 * Determines whether the element is a point
+	 * @memberof Element.prototype
+	 * @return {Boolean}
+	 */
+	isSingular: function () {
+		return this.data.length = 1;
 	}
 
 });
