@@ -1,15 +1,13 @@
 /**
+ * @module Element
  * @file Element (distinguishing mark) class
- * @author Tom Jenkins tom@itsravenous.com
+ * @author Tom Jenkins <tom@itsravenous.com>
  */
 
 var Base = require('basejs');
 var common = require('./common');
 var Point2D = require('./point2d');
 
-/**
- * @constructor
- */
 var Element = Base.extend({
 
 	/**
@@ -48,7 +46,7 @@ var Element = Base.extend({
 	angle: 0,
 
 	/**
-	 * @constructor {Element}
+	 * @constructor Element
 	 */
 	constructor: function () {
 		
@@ -56,6 +54,8 @@ var Element = Base.extend({
 
 	/**
 	 * Sets the point(s) for the element
+	 *
+	 * @memberof Element.prototype
 	 * @param {Array} list of one or four points (one for a point element (i3s classic), four for an ellipse (i3s spot))
 	 */
 	set: function (points) {
@@ -76,6 +76,7 @@ var Element = Base.extend({
 	 *
 	 * As we are currently only comparing spots, this will always return 1 (i.e. identical)
 	 *
+	 * @memberof Element.prototype
 	 * @param {Element}
 	 * @return {Number} 0 - 1
 	 */
@@ -86,6 +87,7 @@ var Element = Base.extend({
 	/**
 	 * As we are currently only comparing spots, this will always return true
 	 * 
+	 * @memberof Element.prototype
 	 * @param {Element}
 	 * @return {Boolean}
 	 */
@@ -96,6 +98,7 @@ var Element = Base.extend({
 	/**
 	 * Apply an affine transformation matrix to the element
 	 * 
+	 * @memberof Element.prototype
 	 * @param {Array}
 	 */
 	doAffine: function (matrix) {
@@ -134,6 +137,8 @@ var Element = Base.extend({
 	 * Calculates and stores the area, aspect ratio and angle of the shape.
 	 * As we're only supporting spots at the moment, this will always result in:
 	 * area=0, ratio=-1, angle=-1
+	 * 
+	 * @memberof Element.prototype
 	 */
 	calcShapeAndArea: function () {
 		this.area = 0;
@@ -142,6 +147,7 @@ var Element = Base.extend({
 	},
 
 	/**
+	 * @memberof Element.prototype
 	 * @param {Number}
 	 * @param {Number}
 	 * @param {Number}
@@ -194,4 +200,3 @@ var Element = Base.extend({
 });
 
 module.exports = Element;
-
