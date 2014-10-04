@@ -76,7 +76,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line12">line 12</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line48">line 48</a>
     </li></ul></dd>
     
     
@@ -127,7 +127,7 @@
 <dd>
     
     <div class="description">
-        angle of element (only applicable to ellipse elements)
+        Angle of element (only applicable to ellipse elements)
     </div>
     
     
@@ -166,7 +166,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line36">line 36</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line46">line 46</a>
     </li></ul></dd>
     
     
@@ -191,7 +191,7 @@
 <dd>
     
     <div class="description">
-        area element (only applicable to ellipse elements)
+        Area of element (only applicable to ellipse elements)
     </div>
     
     
@@ -230,7 +230,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line31">line 31</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line39">line 39</a>
     </li></ul></dd>
     
     
@@ -294,7 +294,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line21">line 21</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line25">line 25</a>
     </li></ul></dd>
     
     
@@ -358,7 +358,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line26">line 26</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line32">line 32</a>
     </li></ul></dd>
     
     
@@ -376,11 +376,15 @@
         
             
 <dt>
-    <h4 class="name" id="data"><span class="type-signature"></span>data<span class="type-signature"> :<a href="Point2D.html">Point2D</a></span></h4>
+    <h4 class="name" id="data"><span class="type-signature"></span>data<span class="type-signature"> :Array</span></h4>
     
     
 </dt>
 <dd>
+    
+    <div class="description">
+        List of element's points
+    </div>
     
     
     
@@ -388,7 +392,7 @@
         <ul>
             <li>
                 
-<span class="param-type"><a href="Point2D.html">Point2D</a></span>
+<span class="param-type">Array</span>
 
 
             </li>
@@ -418,7 +422,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line16">line 16</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line18">line 18</a>
     </li></ul></dd>
     
     
@@ -485,7 +489,7 @@ area=0, ratio=-1, angle=-1
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line106">line 106</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line158">line 158</a>
     </li></ul></dd>
     
     
@@ -605,7 +609,7 @@ As we are currently only comparing spots, this will always return 1 (i.e. identi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line50">line 50</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line98">line 98</a>
     </li></ul></dd>
     
     
@@ -744,7 +748,7 @@ As we are currently only comparing spots, this will always return 1 (i.e. identi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line69">line 69</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line119">line 119</a>
     </li></ul></dd>
     
     
@@ -765,6 +769,228 @@ As we are currently only comparing spots, this will always return 1 (i.e. identi
     
     
     
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getDist"><span class="type-signature"></span>getDist<span class="signature">(el)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Determines the distance from another element
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>el</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Element.html">Element</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line202">line 202</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="isSingular"><span class="type-signature"></span>isSingular<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Determines whether the element is a point
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line211">line 211</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Boolean</span>
+
+
+	</dd>
+</dl>
+
+        
     
     
 </dd>
@@ -861,7 +1087,7 @@ As we are currently only comparing spots, this will always return 1 (i.e. identi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line60">line 60</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line109">line 109</a>
     </li></ul></dd>
     
     
@@ -894,6 +1120,375 @@ As we are currently only comparing spots, this will always return 1 (i.e. identi
 	<dd>
 		
 <span class="param-type">Boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="set"><span class="type-signature"></span>set<span class="signature">(points)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets the point(s) and center for the element
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>points</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">list of one or four points (one for a point element (i3s classic), four for an ellipse (i3s spot))
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>0</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">If element is to be a point, this is the point. If an ellipse, this is the 1st east/west pole</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>1</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">2nd East/west pole of the ellipse</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>2</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">1st north/south pole of the ellipse</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>3</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">2nd north/south pole of the ellipse</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="sqrDist"><span class="type-signature"></span>sqrDist<span class="signature">(el)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Determines the square distance from another element
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>el</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Element.html">Element</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Number</span>
 
 
 	</dd>
@@ -1038,7 +1633,7 @@ As we are currently only comparing spots, this will always return 1 (i.e. identi
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="element.js.html">element.js</a>, <a href="element.js.html#line118">line 118</a>
+        <a href="element.js.html">element.js</a>, <a href="element.js.html#line171">line 171</a>
     </li></ul></dd>
     
     
@@ -1103,7 +1698,7 @@ As we are currently only comparing spots, this will always return 1 (i.e. identi
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sat Sep 13 2014 21:29:06 GMT+0100 (BST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Oct 01 2014 22:21:25 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>

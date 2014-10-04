@@ -18,3 +18,6 @@ To run the test suite, ensure you have installed the development dependencies:
 then run (in the project root):
 
 ```npm test``` 
+
+# Using in a browser
+TODO...
