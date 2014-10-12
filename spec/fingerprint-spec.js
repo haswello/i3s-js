@@ -7,15 +7,6 @@
 var FingerPrint = require('../src/fingerprint');
 
 describe('A spec to test creating and comparing fingerprint', function () {
-	
-	// it('Creates a fingerprint', function () {
-	// 	var f = new FingerPrint([
-	// 		[0, 0],
-	// 		[10, 0],
-	// 		[10, 10]
-	// 	]);
-	// 	expect(f).toEqual(jasmine.any(FingerPrint));
-	// });
 
 	it('Creates a fingerprint with some reference points and elements', function () {
 		var f = new FingerPrint([
