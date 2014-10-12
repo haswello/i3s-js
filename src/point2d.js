@@ -101,7 +101,7 @@ var Point2D = Base.extend({
 	 * @param {Number=} y position of comparison point
 	 * @return {Number}
 	 */
-	getSqrDist: function () {
+	getSqrDist: function (p) {
 		/**
 		 * {Number}
 		 * Distance to comparison point

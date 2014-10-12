@@ -47,9 +47,12 @@ var Element = Base.extend({
 
 	/**
 	 * @constructor Element
+	 * @param {Array} points
 	 */
-	constructor: function () {
-		
+	constructor: function (points) {
+		if (typeof points != 'undefined') {
+			this.set(points);
+		}
 	},
 
 	/**
@@ -63,6 +66,11 @@ var Element = Base.extend({
 	 * @param {Array} points.3 2nd north/south pole of the ellipse
 	 */
 	set: function (points) {
+		// If passing a single point as an array, the length will be 2, so wrap in another array
+		if (points.length == 2) {
+			points = [points];
+		}
+
 		var pointCount = points.length;
 		if (pointCount == 1) {
 			// Simple point

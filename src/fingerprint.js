@@ -3,37 +3,39 @@
  * @author Tom Jenkins tom@itsravenous.com
  */
 
- var config = require('./config');
+var config = require('./config');
 
- var Base = require('basejs');
+var Base = require('basejs');
+var Point2D = require('./point2d');
+var Element = require('./element');
 
- var Pair = Base.extend({
+var Pair = Base.extend({
 	/**
 	 * @constructor {Pair}
 	 * @param {Element}
 	 * @param {Element}
 	 * @param {Number} distance between them
 	 */
-	 constructor: function (e1, e2, dist) {
+	constructor: function (e1, e2, dist) {
 	 	this.e1 = e1;
 	 	this.e2 = e2;
 	 	this.dist = dist;
-	 },
+	},
 
-	 getE1: function () {
+	getE1: function () {
 	 	return this.e1;
-	 },
+	},
 
-	 getE2: function () {
+	getE2: function () {
 	 	return this.e2;
-	 },
+	},
 
-	 getDist: function () {
+	getDist: function () {
 	 	return this.dist;
-	 }
-	});
+	}
+});
 
- var FingerPrint = Base.extend({
+var FingerPrint = Base.extend({
 
 	/**
 	 * Element list
@@ -111,17 +113,24 @@
 	 * @param {Array} elements
 	 */
 	constructor: function (ref, data) {
-		this.ref1 = new Point2D(ref[0], ref[1]);
-		this.ref2 = new Point2D(ref[2], ref[3]);
-		this.ref3 = new Point2D(ref[4], ref[5]);
+		if (typeof ref == 'undefined' || !ref) throw('FingerPrint creation error - expected array as 1st parameter');
 
-		this.cnt = data.length;
+		this.ref1 = new Point2D(ref[0][0], ref[0][1]);
+		this.ref2 = new Point2D(ref[1][0], ref[1][1]);
+		this.ref3 = new Point2D(ref[2][0], ref[2][1]);
 
-		for (var i = 0; i < this.cnt; i++) {
-			this.elt.push(new Element(data[i]));
+		if (typeof data != 'undefined' && data.length) {
+			this.cnt = data.length;
+
+			for (var i = 0; i < this.cnt; i++) {
+				this.elt.push(new Element(data[i]));
+			}
 		}
 
 		this.calcNormFactor();
+
+		// Add reference points to main points array
+		this.addReference();
 	},
 
 	/**
@@ -166,28 +175,25 @@
 		from i3s: process all possible point pairs. this is the most time consuming part of I3S. JdH May 13, 2007
 		calculation is done as match as possible with squared distances to prevent unnecessary sqrt operations.
 		***/
-		for(int i=0; i<cnt; i++) 
-		{
+		for(i = 0; i < this.cnt; i ++) {
 			var minSqrDst = 1000000000;
 			var second  = 1000000000;
 			var minj = -1;
 			var pairs = [];
 
-			for(int j=0; j<f.cnt; j++)		
-			{
+			for(j = 0; j < f.cnt; j ++) {
 				// only compare similar elements
 				if(this.elt[i].matches(f.elt[j]) == false)
 					continue;
 
 				var sqrDist = this.elt[i].sqrDist(f.elt[j]);
 
-				if(sqrDist < minSqrDst)
-				{
+				if(sqrDist < minSqrDst) {
 					second = minSqrDst;
 					minSqrDst = sqrDist;
 					minj = j;
 				} else if(sqrDist < second) 
-				second = sqrDist;
+					second = sqrDist;
 			}
 
 			/***
@@ -195,8 +201,7 @@
 			the minimum distance is below a user defined relative maximum.
 			minRelativeDistance is defined in xml file coming with the database"
 			***/
-			if(minSqrDst*minRelativeDistance <= second && minSqrDst < maxSqrDist)	
-			{
+			if (minSqrDst * minRelativeDistance <= second && minSqrDst < maxSqrDist) {
 				var sqrtd = sqrt(minSqrDst);
 				var from = this.elt[i];
 				var to = f.elt[minj];
@@ -229,7 +234,7 @@
 		this.paircnt -= affine_corr;
 
 		// from i3s: specific penalty for unpaired spots, notPairedRatio will alwyas be < 1. So dividing by it makes score bigger
-		var notPairedRatio = ((2.0*this.paircnt)) / (f.cnt + this.cnt);
+		var notPairedRatio = ((2.0 * this.paircnt)) / (f.cnt + this.cnt);
 		this.score = this.score / (notPairedRatio*notPairedRatio);
 
 		return this.score;
@@ -339,12 +344,12 @@
 	 * @memberof FingerPrint.prototype
 	 */
 	addReference: function () {
-		var ref1El = new Element(this.ref1.x, this.ref1.y);
-		var ref2El = new Element(this.ref2.x, this.ref2.y);
-		var ref3El = new Element(this.ref3.x, this.ref3.y);
+		var ref1El = new Element([this.ref1.x, this.ref1.y]);
+		var ref2El = new Element([this.ref2.x, this.ref2.y]);
+		var ref3El = new Element([this.ref3.x, this.ref3.y]);
 
-	 	this.elt.unshift(ref1EL, ref2El, ref3El);
-	}
+	 	this.elt.unshift(ref1El, ref2El, ref3El);
+	},
 
 	/**
 	 * Resets the score
@@ -354,3 +359,5 @@
 		this.score = 1000000;
 	}
 });
+
+module.exports = FingerPrint;
