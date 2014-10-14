@@ -181,7 +181,8 @@ describe('A spec to test creating and comparing fingerprints', function () {
 		f1.doAffine(affine);
 
 		var distance = f1.distance(f2, -3);
-		console.log('distance', distance);
-	})
+
+		expect(distance).toEqual(15.375698780053549);
+	});
 
 });
