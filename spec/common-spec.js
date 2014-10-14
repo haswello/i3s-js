@@ -35,15 +35,23 @@ describe('A spec to test various helper functions', function () {
 			ux3, uy3
 		);
 
-		console.log(affine);
-
 		var testxy1 = common.doAffine(x1, y1, affine);
 		var testxy2 = common.doAffine(x2, y2, affine);
 		var testxy3 = common.doAffine(x3, y3, affine);
 
-		console.log(testxy1);
-		console.log(testxy2);
-		console.log(testxy3);
+		// Some coordinates seem to generate very slight rounding errors, so we'll round to 10.d.p
+		var roundTo = 10;
+		var round = function (num, dec) {
+			return Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+		}
+
+		expect(round(testxy1.x, roundTo)).toEqual(ux1);
+		expect(round(testxy1.y, roundTo)).toEqual(uy1);
+		expect(round(testxy2.x, roundTo)).toEqual(ux2);
+		expect(round(testxy2.y, roundTo)).toEqual(uy2);
+		expect(round(testxy3.x, roundTo)).toEqual(ux3);
+		expect(round(testxy3.y, roundTo)).toEqual(uy3);
+		
 	});
 
 });
