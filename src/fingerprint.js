@@ -147,19 +147,16 @@ var FingerPrint = Base.extend({
 		// From the i3s source: "reference points have been added to list as the first three elements!"
 		var maxDist = this.elt[0].sqrDist(this.elt[1]);
 		var tmpDist = this.elt[0].sqrDist(this.elt[2]);
-console.log('determineMaxDist1', maxDist);
+
 		if(tmpDist > maxDist)
 			maxDist = tmpDist;
 
-console.log('determineMaxDist2', maxDist);
 		tmpDist = this.elt[1].sqrDist(this.elt[2]);
 
 		if(tmpDist > maxDist)
 			maxDist = tmpDist;
 
-console.log('determineMaxDist3', maxDist);
 		return maxDist * config.maxAllowedDistance;
-
 	},
 
 	/**
@@ -178,7 +175,6 @@ console.log('determineMaxDist3', maxDist);
 		from i3s: process all possible point pairs. this is the most time consuming part of I3S. JdH May 13, 2007
 		calculation is done as match as possible with squared distances to prevent unnecessary sqrt operations.
 		***/
-		console.log('cnt', this.cnt)
 		for(i = 0; i < this.cnt; i ++) {
 			var minSqrDst = 1000000000;
 			var second  = 1000000000;
@@ -242,8 +238,6 @@ console.log('determineMaxDist3', maxDist);
 
 		// from i3s: specific penalty for unpaired spots, notPairedRatio will alwyas be < 1. So dividing by it makes score bigger
 		var notPairedRatio = ((2.0 * this.paircnt)) / (f.cnt + this.cnt);
-		console.log('total spots', f.cnt + this.cnt);
-		console.log('notpaired', notPairedRatio);
 		this.score = this.score / (notPairedRatio*notPairedRatio);
 
 		return this.score;
@@ -279,7 +273,6 @@ console.log('determineMaxDist3', maxDist);
 
 			i--;
 		}
-		console.log('filtered pairs', pairs);
 
 		return {
 			pairs: pairs,
