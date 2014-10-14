@@ -2,7 +2,7 @@ i3s-js
 ======
 ![](https://travis-ci.org/itsravenous/i3s-js.svg?branch=develop)
 
-Javascipt implementation of the various spot/feature pattern matching algorithms used by the photo ID software [i3s](http://reijns.com/i3s).
+Javascipt implementation of the various spot/feature pattern matching algorithms used by the photo ID software [I3S](http://reijns.com/i3s).
 
 # Getting started
 First, install the project dependencies. In the project root:
