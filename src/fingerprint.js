@@ -123,8 +123,14 @@ var FingerPrint = Base.extend({
 		if (typeof data != 'undefined' && data.length) {
 			this.cnt = data.length;
 
+			var el;
 			for (var i = 0; i < this.cnt; i++) {
-				this.elt.push(new Element(data[i]));
+				el = data[i];
+				if (data[i].getCx) {
+					this.elt.push(el);
+				} else {
+					this.elt.push(new Element(el));
+				}
 			}
 		}
 
@@ -132,6 +138,31 @@ var FingerPrint = Base.extend({
 
 		// Add reference points to main points array
 		this.addReference();
+	},
+
+	/**
+	 * Creates a new FingerPrint instance with all the properties of this one
+	 * @memberof Fingerprint.prototype
+	 * @return {FingerPrint}
+	 */
+	clone: function () {
+		// Clone elements array and remove reference points 
+		var newElt = this.elt.slice();
+		newElt.splice(0, 3);
+
+		var f = new FingerPrint([
+				[this.ref1.getX(), this.ref1.getY()],
+				[this.ref2.getX(), this.ref2.getY()],
+				[this.ref3.getX(), this.ref3.getY()]
+			],
+			newElt
+		);
+		f.cnt = this.cnt;
+	    f.score = this.score;
+	    f.paircnt = this.paircnt;
+		f.normfactor = this.normfactor;
+
+		return f;
 	},
 
 	/**
@@ -164,7 +195,7 @@ var FingerPrint = Base.extend({
 	 * @memberof FingerPrint.prototype
 	 * @param {FingerPrint}
 	 * @param {Number} affine correction
-	 * @return {Array}
+	 * @return {Object} containing score and found element pairs
 	 */
 	distance: function (f, affine_corr) {
 		var maxSqrDist = this.determineMaxDist();
@@ -236,11 +267,15 @@ var FingerPrint = Base.extend({
 
 		this.paircnt -= affine_corr;
 
+
 		// from i3s: specific penalty for unpaired spots, notPairedRatio will alwyas be < 1. So dividing by it makes score bigger
 		var notPairedRatio = ((2.0 * this.paircnt)) / (f.cnt + this.cnt);
 		this.score = this.score / (notPairedRatio*notPairedRatio);
 
-		return this.score;
+		return {
+			score: this.score,
+			pairs: pairs
+		};
 	},
 
 	/**
@@ -296,7 +331,6 @@ var FingerPrint = Base.extend({
 	doAffine: function (matrix) {
 		if (this.elt.length == 0 || matrix.length == 0)
 			return;
-
 		for (var i = 0; i < this.cnt; i ++) {
 			this.elt[i].doAffine(matrix);
 		}

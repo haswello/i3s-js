@@ -97,6 +97,22 @@ var Element = Base.extend({
 		}
 
 	},
+
+	/**
+	 * @memberof Element.prototype
+	 * @return {Number}
+	 */
+	getCx: function () {
+		return this.cx;
+	},
+
+	/**
+	 * @memberof Element.prototype
+	 * @return {Number}
+	 */
+	getCy: function () {
+		return this.cy;
+	},
 	
 	/**
 	 * From i3s: Determines similarity (in shape) between two elements (1.0 is perfect). Each difference 
