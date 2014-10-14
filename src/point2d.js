@@ -50,6 +50,24 @@ var Point2D = Base.extend({
 	},
 
 	/**
+	 * Gets the x position of the point
+	 *
+	 * @memberof Point2D.prototype
+	 */
+	getX: function () {
+		return this.x;
+	},
+
+	/**
+	 * Gets the y position of the point
+	 *
+	 * @memberof Point2D.prototype
+	 */
+	getY: function () {
+		return this.y;
+	},
+
+	/**
 	 * Sets the x position of the point
 	 *
 	 * @memberof Point2D.prototype
@@ -118,7 +136,7 @@ var Point2D = Base.extend({
 		 */
 		var y = p.y;
 
-		if (typeof arguments[0] == Point2D) {
+		if (typeof arguments[0] == 'object') {
 			/**
 			 * {Point2D}
 			 * Comparison point

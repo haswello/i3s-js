@@ -16,18 +16,18 @@ var Pair = Base.extend({
 	 * @param {Element}
 	 * @param {Number} distance between them
 	 */
-	constructor: function (e1, e2, dist) {
-	 	this.e1 = e1;
-	 	this.e2 = e2;
+	constructor: function (m1, m2, dist) {
+	 	this.m1 = m1;
+	 	this.m2 = m2;
 	 	this.dist = dist;
 	},
 
-	getE1: function () {
-	 	return this.e1;
+	getM1: function () {
+	 	return this.m1;
 	},
 
-	getE2: function () {
-	 	return this.e2;
+	getM2: function () {
+	 	return this.m2;
 	},
 
 	getDist: function () {
@@ -43,7 +43,7 @@ var FingerPrint = Base.extend({
 	 * {Array}
 	 * @memberof FingerPrint.prototype
 	 */
-	elt: [],
+	elt: null,
 
 	/**
 	 * 1st reference point
@@ -119,6 +119,7 @@ var FingerPrint = Base.extend({
 		this.ref2 = new Point2D(ref[1][0], ref[1][1]);
 		this.ref3 = new Point2D(ref[2][0], ref[2][1]);
 
+		this.elt = [];
 		if (typeof data != 'undefined' && data.length) {
 			this.cnt = data.length;
 
@@ -146,15 +147,17 @@ var FingerPrint = Base.extend({
 		// From the i3s source: "reference points have been added to list as the first three elements!"
 		var maxDist = this.elt[0].sqrDist(this.elt[1]);
 		var tmpDist = this.elt[0].sqrDist(this.elt[2]);
-
+console.log('determineMaxDist1', maxDist);
 		if(tmpDist > maxDist)
 			maxDist = tmpDist;
 
+console.log('determineMaxDist2', maxDist);
 		tmpDist = this.elt[1].sqrDist(this.elt[2]);
 
 		if(tmpDist > maxDist)
 			maxDist = tmpDist;
 
+console.log('determineMaxDist3', maxDist);
 		return maxDist * config.maxAllowedDistance;
 
 	},
@@ -169,17 +172,17 @@ var FingerPrint = Base.extend({
 	distance: function (f, affine_corr) {
 		var maxSqrDist = this.determineMaxDist();
 		var totaldist = 0;
+		var pairs = [];
 		this.paircnt = 0;
-
 		/***
 		from i3s: process all possible point pairs. this is the most time consuming part of I3S. JdH May 13, 2007
 		calculation is done as match as possible with squared distances to prevent unnecessary sqrt operations.
 		***/
+		console.log('cnt', this.cnt)
 		for(i = 0; i < this.cnt; i ++) {
 			var minSqrDst = 1000000000;
 			var second  = 1000000000;
 			var minj = -1;
-			var pairs = [];
 
 			for(j = 0; j < f.cnt; j ++) {
 				// only compare similar elements
@@ -194,33 +197,37 @@ var FingerPrint = Base.extend({
 					minj = j;
 				} else if(sqrDist < second) 
 					second = sqrDist;
-			}
+			
 
-			/***
-			From i3s: "only accept a spot if the second best candidate is at a user defined relative distance and 
-			the minimum distance is below a user defined relative maximum.
-			minRelativeDistance is defined in xml file coming with the database"
-			***/
-			if (minSqrDst * minRelativeDistance <= second && minSqrDst < maxSqrDist) {
-				var sqrtd = sqrt(minSqrDst);
-				var from = this.elt[i];
-				var to = f.elt[minj];
+				/***
+				From i3s: "only accept a spot if the second best candidate is at a user defined relative distance and 
+				the minimum distance is below a user defined relative maximum.
+				minRelativeDistance is defined in xml file coming with the database"
+				***/
+				if (minSqrDst * config.minRelativeDistance <= second && minSqrDst < maxSqrDist) {
+					var sqrtd = Math.sqrt(minSqrDst);
+					var from = this.elt[i];
+					var to = f.elt[minj];
 
-				totaldist += sqrtd*from.calcSimilarityRate(to);
-				this.paircnt++;
+					totaldist += sqrtd*from.calcSimilarityRate(to);
+					this.paircnt++;
 
-				pairs.push(new Pair(from, to, sqrtd));
+					pairs.push(new Pair(i, minj, sqrtd));
+				}
 			}
 		}
 
-		filterOutDuplicatePairs(pairs, totaldist);
+		// Filter out duplicates
+		var filterResult = this.filterOutDuplicatePairs(pairs, totaldist);
+		pairs = filterResult.pairs;
+		totaldist = filterResult.totaldist;
 
 		this.paircnt = pairs.length + affine_corr;
 
 		if(this.paircnt <= 0)
 			this.score = 1000000.0;
 		else 
-			this.score = (f.normfactor*totaldist) / sqr(this.paircnt);
+			this.score = (f.normfactor*totaldist) / (this.paircnt * this.paircnt);
 
 		// from i3s: extra penalty for low number of pairs
 		if(this.paircnt == 1)
@@ -235,9 +242,58 @@ var FingerPrint = Base.extend({
 
 		// from i3s: specific penalty for unpaired spots, notPairedRatio will alwyas be < 1. So dividing by it makes score bigger
 		var notPairedRatio = ((2.0 * this.paircnt)) / (f.cnt + this.cnt);
+		console.log('total spots', f.cnt + this.cnt);
+		console.log('notpaired', notPairedRatio);
 		this.score = this.score / (notPairedRatio*notPairedRatio);
 
 		return this.score;
+	},
+
+	/**
+	 * @memberof Fingerprint.prototype
+	 * @param {Array}
+	 * @param {Number}
+	 * @return {Array}
+	 */
+	filterOutDuplicatePairs: function (pairs, totaldist) {
+		pairs = pairs.sort(function (p1, p2) {
+			if (p1.getM2() < p2.getM2()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		});
+
+		for (var i = 1; i < pairs.length; i++)
+		{
+			if(pairs[i-1].getM2() != pairs[i].getM2()) continue;
+
+			var result = null;
+			if(pairs[i-1].getDist() < pairs[i].getDist()) {
+				result = this.removePair(pairs, i, totaldist);
+			} else {
+				result = this.removePair(pairs, i-1, totaldist);
+			}
+			pairs = result.pairs;
+			totaldist = result.totaldist;
+
+			i--;
+		}
+		console.log('filtered pairs', pairs);
+
+		return {
+			pairs: pairs,
+			totaldist: totaldist	
+		};
+	},
+
+	removePair: function (pairs, i, totaldist) {
+		totaldist -= pairs[i].getDist();
+		pairs.splice(i, 1);
+		return {
+			pairs: pairs,
+			totaldist: totaldist
+		};
 	},
 
 	/**
@@ -248,8 +304,9 @@ var FingerPrint = Base.extend({
 		if (this.elt.length == 0 || matrix.length == 0)
 			return;
 
-		for (var i = 0; i < this.cnt; i ++)
+		for (var i = 0; i < this.cnt; i ++) {
 			this.elt[i].doAffine(matrix);
+		}
 	},
 
 	/**
@@ -283,7 +340,7 @@ var FingerPrint = Base.extend({
 		tot += this.ref1.getDist(this.ref3);
 		tot += this.ref2.getDist(this.ref3);
 
-		this.normfactor = 10000.0 / tot; // From i3s source: "10000 is an arbitrary value, but gives results of good matches somewhere between 0 and 20"
+		this.normfactor = 10000 / tot; // From i3s source: "10000 is an arbitrary value, but gives results of good matches somewhere between 0 and 20"
 	},
 
 	/**
@@ -349,6 +406,7 @@ var FingerPrint = Base.extend({
 		var ref3El = new Element([this.ref3.x, this.ref3.y]);
 
 	 	this.elt.unshift(ref1El, ref2El, ref3El);
+	 	this.cnt += 3;
 	},
 
 	/**
