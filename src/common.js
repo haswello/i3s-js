@@ -4,7 +4,40 @@
  * @author Tom Jenkins <tom@itsravenous.com>
  */
 
+var gauss = require('./gauss');
+
 module.exports = {
+
+	/**
+	 * 
+	 */
+	calcAffine: function (x1, y1, x2, y2, x3, y3, ux1, uy1, ux2, uy2, ux3, uy3) {
+		mx = gauss([
+				[x1, y1, 1],
+				[x2, y2, 1],
+				[x3, y3, 1],
+			],
+			[
+				ux1,
+				ux2,
+				ux3,
+			]
+		);
+
+		my = gauss([
+				[x1, y1, 1],
+				[x2, y2, 1],
+				[x3, y3, 1],
+			],
+			[
+				uy1,
+				uy2,
+				uy3
+			]
+		);
+		
+		return mx.concat(my);
+	},
 
 	/**
 	 * @param {Number} x position
@@ -24,5 +57,6 @@ module.exports = {
 			x: x,
 			y: y
 		}
-	}
+	},
+
 }
