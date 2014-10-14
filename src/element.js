@@ -8,6 +8,10 @@ var Base = require('basejs');
 var common = require('./common');
 var Point2D = require('./point2d');
 
+// Debug
+var id = 1;
+
+
 var Element = Base.extend({
 
 	/**
@@ -47,9 +51,13 @@ var Element = Base.extend({
 
 	/**
 	 * @constructor Element
+	 * @param {Array} points
 	 */
-	constructor: function () {
-		
+	constructor: function (points) {
+		this.id = id ++;
+		if (typeof points != 'undefined') {
+			this.set(points);
+		}
 	},
 
 	/**
@@ -63,6 +71,11 @@ var Element = Base.extend({
 	 * @param {Array} points.3 2nd north/south pole of the ellipse
 	 */
 	set: function (points) {
+		// If passing a single point as an array, the length will be 2, so wrap in another array
+		if (points.length == 2) {
+			points = [points];
+		}
+
 		var pointCount = points.length;
 		if (pointCount == 1) {
 			// Simple point
@@ -135,15 +148,22 @@ var Element = Base.extend({
 
 		// Loop over coordinates and apply transformation to each
 		for(var i = 0; i < 4; i++) {
+			if (!this.data[i]) break;
+
 			tmpx = this.data[i].getX();
 			tmpy = this.data[i].getY();
-			tmpxy = common._doAffine(tmpx, tmpy, matrix);
+			tmpxy = common.doAffine(tmpx, tmpy, matrix);
 			tmpx = tmpxy.x;
 			tmpy = tmpxy.y;
 			this.data[i].set(tmpx, tmpy);
 		}
-		cx = (this.data[0].getX() + this.data[1].getX())/ 2.0;
-		cy = (this.data[0].getY() + this.data[1].getY())/ 2.0;
+		if (this.data.length > 1) {
+			this.cx = (this.data[0].getX() + this.data[1].getX())/ 2.0;
+			this.cy = (this.data[0].getY() + this.data[1].getY())/ 2.0;
+		} else {
+			this.cx = this.data[0].getX();
+			this.cy = this.data[0].getY();
+		}
 
 		this.calcShapeAndArea();
 	},
