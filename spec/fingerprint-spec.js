@@ -7,7 +7,7 @@
 var common = require('../src/common');
 var FingerPrint = require('../src/fingerprint');
 
-describe('A spec to test creating and comparing fingerprint', function () {
+describe('A spec to test creating and comparing fingerprints', function () {
 
 	it('Creates a fingerprint with some reference points and elements', function () {
 		var f = new FingerPrint([
