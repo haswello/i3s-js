@@ -111,9 +111,51 @@ describe('A spec for the Compare class', function () {
 			]
 		};
 
+		var tom1 = {
+			refs: [
+				[213, 215],
+				[696, 305],
+				[413, 545],
+			],
+			features: [
+				[62, 409],
+				[91, 348],
+				[172, 495],
+				[232, 474],
+				[253, 452],
+				[280, 387],
+				[301, 393],
+				[328, 412],
+				[330, 484],
+				[350, 444],
+				[358, 501],
+				[376, 437],
+				[373, 358],
+				[382, 484],
+				[384, 461],
+				[436, 446],
+				[463, 371],
+				[474, 439],
+				[484, 381],
+				[488, 356],
+				[506, 380],
+				[517, 350],
+				[565, 380],
+				[584, 383],
+				[598, 352],
+				[628, 380],
+				[560, 451],
+				[625, 460],
+				[698, 466],
+				[688, 376],
+				[722, 376]
+			]
+		}
+
 		var f1 = new FingerPrint(baasie1.refs, baasie1.features);
 		var f2 = new FingerPrint(baasie2.refs, baasie2.features);
 		var f3 = new FingerPrint(baasie3.refs, baasie3.features);
+		var f4 = new FingerPrint(tom1.refs, tom1.features);
 
 		var comp = new Compare();
 		var score = comp.compareTwo(f1, f2);
