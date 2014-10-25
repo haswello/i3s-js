@@ -2,7 +2,7 @@
   "name": "i3s",
   "version": "0.0.0",
   "description": "Port of the various spot/feature pattern matching algorithms used by the photo ID software i3s (http://reijns.com/i3s)",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "jasmine-node spec"
   },
