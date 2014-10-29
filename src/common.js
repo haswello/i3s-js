@@ -35,8 +35,20 @@ module.exports = {
 				uy3
 			]
 		);
-		
-		return mx.concat(my);
+
+		var invalidX = mx.some(function (v) {
+			return v == Infinity || v == -Infinity;
+		});
+		var invalidY = my.some(function (v) {
+			return v == Infinity || v == -Infinity;
+		});
+
+		if (invalidX || invalidY) {
+			console.warn('Unsolvable gauss')
+			return false;
+		} else {
+			return mx.concat(my);
+		}
 	},
 
 	/**
