@@ -42,12 +42,12 @@ var Compare = Base.extend({
 		);
 
 		// Clone fingerprint and apply transformation
-		fa = f1.clone();
-		fa.doAffine(affine);
+		f1c = f1.clone();
+		f1c.doAffine(affine);
 
 		// Calculate score
-		var result = fa.distance(f2, -3);
-		var score = this.exhaustiveSearch(fa, f2, result.pairs)
+		var result = f1c.distance(f2, -3);
+		var score = this.exhaustiveSearch(f1c, f2, result.pairs)
 
 		return score;
 	},
