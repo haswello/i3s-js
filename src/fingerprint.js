@@ -200,8 +200,9 @@ var FingerPrint = Base.extend({
 	distance: function (f, affine_corr) {
 		var maxSqrDist = this.determineMaxDist();
 		var totaldist = 0;
-		var pairs = [];
+		this.pairs = [];
 		this.paircnt = 0;
+
 		/***
 		from i3s: process all possible point pairs. this is the most time consuming part of I3S. JdH May 13, 2007
 		calculation is done as match as possible with squared distances to prevent unnecessary sqrt operations.
@@ -239,17 +240,17 @@ var FingerPrint = Base.extend({
 					totaldist += sqrtd*from.calcSimilarityRate(to);
 					this.paircnt++;
 
-					pairs.push(new Pair(i, minj, sqrtd));
+					this.pairs.push(new Pair(i, minj, sqrtd));
 				}
 			}
 		}
 
 		// Filter out duplicates
-		var filterResult = this.filterOutDuplicatePairs(pairs, totaldist);
-		pairs = filterResult.pairs;
+		var filterResult = this.filterOutDuplicatePairs(this.pairs, totaldist);
+		this.pairs = filterResult.pairs;
 		totaldist = filterResult.totaldist;
 
-		this.paircnt = pairs.length + affine_corr;
+		this.paircnt = this.pairs.length + affine_corr;
 
 		if(this.paircnt <= 0)
 			this.score = 1000000.0;
@@ -274,7 +275,7 @@ var FingerPrint = Base.extend({
 
 		return {
 			score: this.score,
-			pairs: pairs
+			pairs: this.pairs
 		};
 	},
 
