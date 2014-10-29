@@ -41,14 +41,15 @@ var Compare = Base.extend({
 			f2.ref3.getY()
 		);
 
-		// Apply transformation matrix
-		f1.doAffine(affine);
+		// Clone fingerprint and apply transformation
+		fa = f1.clone();
+		fa.doAffine(affine);
 
 		// Calculate score
-		var result = f1.distance(f2, -3);
-		var score = this.exhaustiveSearch(f1, f2, result.pairs)
+		var result = fa.distance(f2, -3);
+		var score = this.exhaustiveSearch(fa, f2, result.pairs)
 
-		return result.score;
+		return score;
 	},
 
 	/**
