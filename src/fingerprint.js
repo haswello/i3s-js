@@ -112,9 +112,10 @@ var FingerPrint = Base.extend({
 	 * @param {Array} reference points
 	 * @param {Array} elements
 	 */
-	constructor: function (ref, data) {
+	constructor: function (ref, data, name) {
 		if (typeof ref == 'undefined' || !ref) throw('FingerPrint creation error - expected array as 1st parameter');
 
+		this.name = name;
 		this.ref1 = new Point2D(ref[0][0], ref[0][1]);
 		this.ref2 = new Point2D(ref[1][0], ref[1][1]);
 		this.ref3 = new Point2D(ref[2][0], ref[2][1]);
@@ -147,21 +148,26 @@ var FingerPrint = Base.extend({
 	 */
 	clone: function () {
 		// Clone elements array and remove reference points 
-		var newElt = this.elt.slice();
-		newElt.splice(0, 3);
+		var tmpElt = this.elt.slice(0);
+		tmpElt.splice(0, 3);
+		var newElt = [];
+		for (var i = 0; i < tmpElt.length; i ++) {
+			newElt.push(tmpElt[i].clone());
+		}
 
 		var f = new FingerPrint([
 				[this.ref1.getX(), this.ref1.getY()],
 				[this.ref2.getX(), this.ref2.getY()],
 				[this.ref3.getX(), this.ref3.getY()]
 			],
-			newElt
+			newElt,
+			this.name
 		);
 		f.cnt = this.cnt;
 	    f.score = this.score;
+	    f.pairs = this.pairs;
 	    f.paircnt = this.paircnt;
-		f.normfactor = this.normfactor;
-
+		f.normfactor = this.normfactor
 		return f;
 	},
 
@@ -272,7 +278,6 @@ var FingerPrint = Base.extend({
 		// from i3s: specific penalty for unpaired spots, notPairedRatio will alwyas be < 1. So dividing by it makes score bigger
 		var notPairedRatio = ((2.0 * this.paircnt)) / (f.cnt + this.cnt);
 		this.score = this.score / (notPairedRatio*notPairedRatio);
-
 		return {
 			score: this.score,
 			pairs: this.pairs

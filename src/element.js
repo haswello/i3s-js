@@ -99,6 +99,20 @@ var Element = Base.extend({
 	},
 
 	/**
+	 * Clones the element
+	 * @memberof Element.prototype
+	 * @return {Element}
+	 */
+	clone: function () {
+		var e = new Element();
+		e.data = [];
+		this.data.forEach(function (point) {
+			e.data.push(new Point2D(point.x, point.y));
+		});
+		return e;
+	},
+
+	/**
 	 * @memberof Element.prototype
 	 * @return {Number}
 	 */
