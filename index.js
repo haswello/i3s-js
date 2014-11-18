@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-	Compare: require('./compare'),
-	FingerPrint: require('./fingerprint'),
-	Element: require('./element')
+	Compare: require('./src/compare'),
+	FingerPrint: require('./src/fingerprint'),
+	Element: require('./src/element')
 };
