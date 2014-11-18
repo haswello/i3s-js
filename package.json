@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/itsravenous/i3s-js",
   "dependencies": {
-    "basejs": "^1.1.1"
+    "basejs": "^1.1.1",
+    "i3s-fgp-reader": "0.0.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
