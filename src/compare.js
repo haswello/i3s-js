@@ -24,7 +24,12 @@ var Compare = Base.extend({
 	 * @param {FingerPrint}
 	 * @return {Number} score - lower numbers are better matches
 	 */
-	compareTwo: function (f1, f2) {
+	compareTwo: function (f1, f2, options) {
+
+		// Determine whether to use exhaustive search
+		options = options || {};
+		if (typeof options.exhaustive == 'undefined') options.exhaustive = true;
+
 		// Calculate matrix to transform points in f1 to f2's space
 		var affine = common.calcAffine(
 			f1.ref1.getX(),
@@ -47,9 +52,14 @@ var Compare = Base.extend({
 
 		// Calculate score
 		var result = f1c.distance(f2, -3);
-		var score = this.exhaustiveSearch(f1c, f2, result.pairs)
 
-		return score;
+		if (options.exhaustive) {
+			var score = this.exhaustiveSearch(f1c, f2, result.pairs)
+			return score;
+		} else {
+			return result.score;
+		}
+
 	},
 
 	/**

@@ -10,7 +10,7 @@ var FingerPrint = require('../src/fingerprint');
 
 describe('A spec for the Compare class', function () {
 
-	it('Compares two fingerprints based on two images from the original I3S test data, using the "exhaustive search" method', function () {
+	it('Compares two fingerprints based on two images from the original I3S test data, using the "simple search" method', function () {
 
 		var removeSize = function (kp) {
 			return [kp[0], kp[1]];
@@ -27,7 +27,9 @@ describe('A spec for the Compare class', function () {
 		var f4 = new FingerPrint(tom1.refs, tom1.features);
 
 		var comp = new Compare();
-		var score = comp.compareTwo(f1, f2);
+		var score = comp.compareTwo(f1, f2, {
+			exhaustive: true
+		});
 		var scoreRounded = Math.round(score * 100) / 100;
 
 		expect(scoreRounded).toEqual(9.23);
